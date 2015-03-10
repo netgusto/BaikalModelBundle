@@ -2,13 +2,9 @@
 
 namespace Baikal\ModelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    Doctrine\Common\Collections\ArrayCollection,
-    Symfony\Component\Validator\Constraints as Assert,
-    Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
-use Baikal\ModelBundle\Entity\User,
-    Baikal\ModelBundle\Entity\Addressbook;
+use Baikal\ModelBundle\Entity\User;
 
 /**
  * UserMetadata; to use SabreDav user as a Baïkal User, while allowing the user extension with Baïkal's specific metadata
