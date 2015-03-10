@@ -1,0 +1,39 @@
+Baikal\ModelBundle\Entity\Scheduling:
+    type: entity
+    table: schedulingobjects
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+
+        principaluri:
+            type: string
+            length: 255
+            nullable: true
+
+        calendardata:
+            type: text
+            nullable: true
+
+        uri:
+            type: string
+            length: 200
+            nullable: true
+
+        lastmodified:
+            type: integer
+            nullable: true
+
+        etag:
+            type: string
+            length: 255
+            nullable: true
+
+        size:
+            type: integer
+            nullable: true
+
+    lifecycleCallbacks: {  }

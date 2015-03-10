@@ -45,6 +45,11 @@ Baikal\ModelBundle\Entity\Event:
             type: integer
             nullable: true
 
+        uid:
+            type: string
+            length: 200
+            nullable: true
+
     manyToOne:
 
         calendar:
