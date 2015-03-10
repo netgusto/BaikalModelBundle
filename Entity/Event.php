@@ -55,6 +55,11 @@ class Event
 
     private $calendar;
 
+    /**
+     * @var string
+     */
+    private $uid;
+
     private $vobject;
 
 
@@ -284,6 +289,29 @@ class Event
     public function getLastoccurence()
     {
         return $this->lastoccurence;
+    }
+
+    /**
+     * Set uid
+     *
+     * @param string $uid
+     * @return Event
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    /**
+     * Get uid
+     *
+     * @return string 
+     */
+    public function getUid()
+    {
+        return $this->uid;
     }
 
     # Dav wrapper methods below this line
