@@ -4,7 +4,7 @@ namespace Baikal\ModelBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-use Baikal\ModelBundle\Entity\User;
+use Baikal\ModelBundle\Entity\AbstractUser as User;
 
 /**
  * UserPrincipalRepository

@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
-use Baikal\ModelBundle\Entity\User,
+use Baikal\ModelBundle\Entity\AbstractUser as User,
     Baikal\ModelBundle\Entity\Repository\UserRepository,
     Baikal\ModelBundle\Entity\Repository\CalendarRepository,
     Baikal\ModelBundle\Entity\Repository\AddressbookRepository;
@@ -44,7 +44,7 @@ class UserListener {
 
     public function preRemove(User $user, LifecycleEventArgs $event) {
 
-        # Removing the metadata/principals/calendars/addressbooks for a user in the User preRemove doctrine event
+        # Removing the principals/calendars/addressbooks for a user in the User preRemove doctrine event
         # As doctrine can't handle relationships natively on non-primarykey values
 
         $em = $event->getObjectManager();

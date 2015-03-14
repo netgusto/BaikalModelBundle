@@ -1,5 +1,6 @@
-Baikal\ModelBundle\Entity\User:
-    type: entity
+Baikal\ModelBundle\Entity\AbstractUser:
+    #type: entity
+    type: mappedSuperclass
     table: users
     repositoryClass: Baikal\ModelBundle\Entity\Repository\UserRepository
     entityListeners:
@@ -24,16 +25,9 @@ Baikal\ModelBundle\Entity\User:
             length: 200
             nullable: true
 
-    oneToOne:
-        metadata:
-            targetEntity: Baikal\ModelBundle\Entity\UserMetadata
-            cascade:
-                - remove
-                - persist
-                - merge
-            mappedBy: user
-            inversedBy: null
-            joinColumns: {  }
-            orphanRemoval: false
+        roles:
+            type: simple_array
+            #nullable: false
+            nullable: true
 
     lifecycleCallbacks: {  }

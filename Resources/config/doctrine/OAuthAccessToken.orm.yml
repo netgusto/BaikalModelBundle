@@ -21,7 +21,7 @@ Baikal\ModelBundle\Entity\OAuthAccessToken:
             orphanRemoval: false
 
         user:
-            targetEntity: Baikal\ModelBundle\Entity\User
+            targetEntity: Baikal\ModelBundle\Entity\AbstractUser
             cascade: { }
             joinColumns:
                 user_id:

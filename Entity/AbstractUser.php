@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection,
  *
  * @ORMAssert\UniqueEntity(fields={"username"}, message="This username is not available.")
  */
-class User implements UserInterface, \Serializable {
+abstract class AbstractUser implements UserInterface, \Serializable {
     /**
      * @var integer
      */
@@ -42,16 +42,16 @@ class User implements UserInterface, \Serializable {
     private $addressbooks = array();
 
     /**
-     * @var Entity\UserMetadata
-     * # This is the inversed side of the 1-1 relationship
+     * @var array
+     * @Assert\NotBlank(message="Veuillez renseigner au moins un rôle.")
      */
-    private $metadata;
+    private $roles = array();
 
-    public function __construct() {
-        # This will be populated by Baikal\ModelBundle\Entity\UserListener::postLoad()
-        # Using Doctrine Entity Listener here as Doctrine cannot natively handle relationships on non-primarykey columns
-        $this->principals = array();
-    }
+    #public function __construct() {
+    #    # This will be populated by Baikal\ModelBundle\Entity\UserListener::postLoad()
+    #    # Using Doctrine Entity Listener here as Doctrine cannot natively handle relationships on non-primarykey columns
+    #    $this->principals = array();
+    #}
 
     /**
      * Get id
@@ -159,37 +159,6 @@ class User implements UserInterface, \Serializable {
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function getRoles() {
-        if(is_null($this->metadata)) {
-            return array();
-        }
-        
-        return $this->metadata->getRoles();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setRoles(array $roles) {
-        if(is_null($this->metadata)) {
-            return array();
-        }
-        
-        $this->metadata->setRoles($roles);
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addRole($role) {
-        $this->metadata->addRole($role);
-        return $this;
-    }
-
     public function hasRole($role) {
         return in_array($role, $this->getRoles());
     }
@@ -197,9 +166,45 @@ class User implements UserInterface, \Serializable {
     /**
      * @inheritDoc
      */
+    public function getRoles() {
+        return $this->roles;
+    }
+
+     /**
+     * @inheritDoc
+     */
+    public function setRoles(array $roles) {
+        return $this->roles = $roles;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addRole($role) {
+
+        $role = strtoupper($role);
+        if ($role === "ROLE_DEFAULT") {
+            return;
+        }
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function removeRole($role) {
-        $this->metadata->removeRole($role);
-        return $this;
+
+        $role = strtoupper($role);
+        if ($role === "ROLE_DEFAULT") {
+            return;
+        }
+
+        if (in_array($role, $this->roles, true)) {
+            unset($this->roles[array_search($role, $this->roles)]);
+        }
     }
 
     /**
