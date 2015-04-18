@@ -318,8 +318,8 @@ class Event
 
     public function getVObject() {
         if(is_null($this->vobject)) {
-            
-            if(empty($this->getCalendardata())) {
+            $this->calendardata = $this->getCalendardata();
+            if(empty($this->calendardata)) {
                 $this->vobject = new VObject\Component\VCalendar();
                 $this->vobject->add('VEVENT', [
                     'SUMMARY' => 'Empty',
